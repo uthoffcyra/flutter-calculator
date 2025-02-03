@@ -26,18 +26,28 @@ class _HomeState extends State<Home> {
       });
     }
 
-    if (buttonText == '=') {
+    // Reciprocal
+    if (buttonText == '1/x') {
+      setState(() {
+        accumulator = '1/($accumulator)';
+      });
+    }
+
+    // Evaluate
+    else if (buttonText == '=') {
       expression = Expression.parse(accumulator);
       setState(() {
         prevexp = accumulator;
         accumulator = evaluator.eval(expression, {}).toString();
       });
 
+    // Clear
     } else if (buttonText == 'CLEAR') {
       setState(() {
         accumulator = '';
       });
 
+    // Add
     } else {
       setState(() {
         accumulator = accumulator + buttonText;
@@ -86,7 +96,7 @@ class _HomeState extends State<Home> {
         child: Column(
           children: <Widget>[
             const Expanded(
-              child: Text(''),
+              child: Text(''), // I just needed an empty element...
             ),
             Container(
               alignment: Alignment.centerRight,
@@ -96,6 +106,7 @@ class _HomeState extends State<Home> {
               ),
               child: Text(
                 prevexp.isNotEmpty ? '$prevexp = $accumulator': accumulator,
+                textAlign: TextAlign.right,
                 style: TextStyle(
                   fontSize: 100/((accumulator.length+prevexp.length+3)*0.1 +1),
                   fontWeight: FontWeight.bold,
@@ -139,6 +150,7 @@ class _HomeState extends State<Home> {
                 ),
                 Row(
                   children: [
+                    buildButton('1/x', darken: true, notAspect: true),
                     buildButton('CLEAR', darken: true, notAspect: true),
                     buildButton('=', darken: true, notAspect: true),
                   ],
