@@ -1,7 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:expressions/expressions.dart';
-import 'package:cupertino_icons/cupertino_icons.dart';
 
 void main() {
   runApp(const MaterialApp(home: Home()));
