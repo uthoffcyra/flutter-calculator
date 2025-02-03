@@ -2,4 +2,4 @@
 
 A simple calculator application developed using Flutter and Dart.
 
-<img height="500" alt="calculator" src="https://github.com/user-attachments/assets/618d5634-16f2-4635-b791-0db9e02685db" />
+<img height="400" alt="calculator" src="https://github.com/user-attachments/assets/7335d6fe-c7c0-4f3d-82cb-79d30d83ec63" />
