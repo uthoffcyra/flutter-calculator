@@ -90,7 +90,7 @@ class _HomeState extends State<Home> {
           child: FilledButton(
             style: FilledButton.styleFrom(
               foregroundColor: Colors.white,
-              backgroundColor: Colors.cyan[darken == null ? 400 : 700],
+              backgroundColor: Colors.cyan[darken == null ? 400 : 800],
             ),
             child: label,
             onPressed: () => buttonPressed(buttonText),
