@@ -1,5 +1,7 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:expressions/expressions.dart';
+import 'package:cupertino_icons/cupertino_icons.dart';
 
 void main() {
   runApp(const MaterialApp(home: Home()));
@@ -33,6 +35,13 @@ class _HomeState extends State<Home> {
       });
     }
 
+    else if (buttonText == 'backspace') {
+      setState(() {
+        accumulator = accumulator.isNotEmpty ? 
+          accumulator.substring(0, accumulator.length - 1) : '';
+      });
+    }
+
     // Evaluate
     else if (buttonText == '=') {
       expression = Expression.parse(accumulator);
@@ -55,10 +64,27 @@ class _HomeState extends State<Home> {
     }
   }
 
-  Widget buildButton(String buttonText, {bool ?darken, bool ?notAspect}) {
+  Widget buildButton(String buttonText, {bool ?darken, IconData ?icon}) {
+
+    Widget label;
+
+    if (icon != null) {
+      label = Icon(
+        icon, size: 32, color: Colors.white,
+      );
+    } else {
+      label = Text(
+        buttonText,
+        style: const TextStyle(
+          fontSize: 24,
+          fontWeight: FontWeight.bold,
+        ),
+      );
+    }
+
     return Expanded(
       child: AspectRatio(
-        aspectRatio: notAspect==null ? 1.0 : 3/2,
+        aspectRatio: 1.0,
         child: Container(
           margin: EdgeInsets.all(5),
           child: FilledButton(
@@ -66,13 +92,7 @@ class _HomeState extends State<Home> {
               foregroundColor: Colors.white,
               backgroundColor: Colors.cyan[darken == null ? 400 : 700],
             ),
-            child: Text(
-          buttonText,
-          style: const TextStyle(
-            fontSize: 24,
-            fontWeight: FontWeight.bold,
-          ),
-            ),
+            child: label,
             onPressed: () => buttonPressed(buttonText),
           ),
         ),
@@ -121,7 +141,8 @@ class _HomeState extends State<Home> {
                     buildButton('7'),
                     buildButton('8'),
                     buildButton('9'),
-                    buildButton('/', darken: true),
+                    buildButton('/', darken: true,
+                      icon: CupertinoIcons.divide),
                   ],
                 ),
                 Row(
@@ -129,7 +150,8 @@ class _HomeState extends State<Home> {
                     buildButton('4'),
                     buildButton('5'),
                     buildButton('6'),
-                    buildButton('*', darken: true),
+                    buildButton('*', darken: true,
+                      icon: CupertinoIcons.clear_thick),
                   ],
                 ),
                 Row(
@@ -137,7 +159,8 @@ class _HomeState extends State<Home> {
                     buildButton('1'),
                     buildButton('2'),
                     buildButton('3'),
-                    buildButton('-', darken: true),
+                    buildButton('-', darken: true, 
+                      icon: CupertinoIcons.minus),
                   ],
                 ),
                 Row(
@@ -145,14 +168,19 @@ class _HomeState extends State<Home> {
                     buildButton('.'),
                     buildButton('0'),
                     buildButton('00'),
-                    buildButton('+', darken: true),
+                    buildButton('+', darken: true, 
+                      icon: CupertinoIcons.plus),
                   ],
                 ),
                 Row(
                   children: [
-                    buildButton('1/x', darken: true, notAspect: true),
-                    buildButton('CLEAR', darken: true, notAspect: true),
-                    buildButton('=', darken: true, notAspect: true),
+                    buildButton('1/x', darken: true),
+                    buildButton('backspace', darken: true,
+                      icon: CupertinoIcons.backward),
+                    buildButton('CLEAR', darken: true,
+                      icon: CupertinoIcons.nosign),
+                    buildButton('=', darken: true,
+                      icon: CupertinoIcons.equal),
                   ],
                 ),
               ],
